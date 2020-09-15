@@ -1,0 +1,21 @@
+{
+    "name": "ametsuramet/startup-engine-php-sdk",
+    "description": "PHP SDK for Codelite Startup ENGINE",
+    "type": "library",
+    "require": {
+        "guzzlehttp/guzzle": "^7.1@dev"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Ametsuramet\\StartupEngine\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Rahmat Supriatna",
+            "email": "ametsuramet@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
