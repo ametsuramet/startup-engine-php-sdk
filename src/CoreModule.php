@@ -2,7 +2,7 @@
 namespace Ametsuramet\StartupEngine;
 use GuzzleHttp;
 
-class PublicModule {
+class CoreModule {
     private String $baseUrl = "http://localhost:9000/api/v1";
     private String $appKey;
     private String $appSecret;
