@@ -14,9 +14,15 @@ class CoreAuth
     private String $fcm_token;
     private String $httpMethod = "POST";
     private String $body;
+    private String $appKey;
+    private String $appSecret;
 
-    function __construct()
+    function __construct($appKey, $appSecret = "")
     {
+        $this->appKey = $appKey;
+        $this->appSecret = $appSecret;
+      
+
     }
 
     public function login($username, $password, $device, $fcm_token)
