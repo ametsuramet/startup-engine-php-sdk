@@ -65,6 +65,6 @@ class CoreModule {
         if  ($res->getStatusCode() != 200) {
             throw new \Exception("Error Request => " . $res->getStatusCode());
         }
-        return json_decode($res->getBody()->getContents(), true) ;
+        return json_decode($res->getBody()->getContents()) ;
     }
 }

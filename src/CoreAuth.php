@@ -14,8 +14,10 @@ class CoreAuth
     private String $fcm_token;
     private String $httpMethod = "POST";
     private String $body;
+    private Array $query = [];
     private String $appKey;
     private String $appSecret;
+    private String $endpoint;
 
     function __construct($appKey, $appSecret = "")
     {
@@ -37,8 +39,9 @@ class CoreAuth
             "device" => $device,
             "fcm_token" => $fcm_token,
         ]);
+        $this->endpoint = "/api/v1/startup/public/auth/login";
         $this->setClient();
-        $this->send();
+        return $this->send();
     }
 
     public function setBaseUrl($baseUrl)
@@ -51,6 +54,7 @@ class CoreAuth
         $this->client =  new GuzzleHttp\Client([
             'base_uri' => $this->baseUrl,
             'headers' => [
+                'content-type' => 'application/json',
                 "APP-ID" => $this->appKey,
             ]
         ]);
@@ -59,6 +63,7 @@ class CoreAuth
 
     private function send()
     {
+        // dd($this->body);
         $res = $this->client->request($this->httpMethod, $this->endpoint, [
             'query' => $this->query,
             'body' => $this->body,
@@ -66,6 +71,6 @@ class CoreAuth
         if ($res->getStatusCode() != 200) {
             throw new \Exception("Error Request => " . $res->getStatusCode());
         }
-        return json_decode($res->getBody()->getContents(), true);
+        return json_decode($res->getBody()->getContents());
     }
 }
