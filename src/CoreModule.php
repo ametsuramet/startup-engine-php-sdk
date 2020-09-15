@@ -2,8 +2,9 @@
 namespace Ametsuramet\StartupEngine;
 use GuzzleHttp;
 
+
 class CoreModule {
-    private String $baseUrl = "http://localhost:9000/api/v1";
+    private String $baseUrl = "http://localhost:9000";
     private String $appKey;
     private String $appSecret;
     private String $feature;
@@ -11,26 +12,38 @@ class CoreModule {
     private $httpMethod = "GET";
     private $query;
     private $endpoint;
+    private $token;
 
     function __construct($appKey, $appSecret = "")
     {
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
-        $this->client =  new GuzzleHttp\Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
-                "APP-ID" => $appKey,
-            ]
-        ]);
+      
 
     }
 
     public function setBaseUrl($baseUrl) {
         $this->baseUrl = $baseUrl;
     }
+    public function setToken($token) {
+        $this->token = $token;
+    }
+
+    private function setClient() {
+        $this->client =  new GuzzleHttp\Client([
+            'base_uri' => $this->baseUrl,
+            'headers' => [
+                "APP-ID" => $this->appKey,
+                "Authorization" => "Bearer ". $this->token,
+            ]
+        ]);
+    }
+
+ 
 
     public function getList($feature,  $search = "", $page = 1, $limit = 20) 
     {
+        $this->setClient();
         $this->httpMethod = "GET";
         $this->query = [
             "type" => $feature,
@@ -39,7 +52,7 @@ class CoreModule {
             "limit" => $limit,
         ];
         
-        $this->endpoint = "/public/feature";
+        $this->endpoint = "/api/v1/startup/public/feature";
 
         return $this->send();
     }
@@ -52,6 +65,6 @@ class CoreModule {
         if  ($res->getStatusCode() != 200) {
             throw new \Exception("Error Request => " . $res->getStatusCode());
         }
-        return $res->getBody();
+        return json_decode($res->getBody()->getContents(), true) ;
     }
 }
