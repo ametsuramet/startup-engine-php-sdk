@@ -51,6 +51,8 @@ class CoreModule {
             "search" => $search ?? "",
             "page" => $page ?? 1,
             "limit" => $limit ?? 20,
+            "orderBy" => $orderBy ?? "",
+            "order" => $order ?? "asc",
         ];
         
         $this->endpoint = "/api/v1/startup/public/feature";
