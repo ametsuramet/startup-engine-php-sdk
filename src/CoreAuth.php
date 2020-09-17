@@ -49,18 +49,19 @@ class CoreAuth
         extract($payload);
  
         $this->body = json_encode([
-            "email" => $email,
-            "password" => $password,
-            "username" => $username,
-            "phone" => $phone,
-            "first_name" => $first_name,
-            "last_name" => $last_name,
-            "gender" => $gender,
-            "address" => $address,
-            "province_id" => $province_id,
-            "regency_id" => $regency_id,
-            "district_id" => $district_id,
-            "village_id" => $village_id,
+            "email" => $email ?? null,
+            "password" => $password ?? null,
+            "username" => $username ?? null,
+            "phone" => $phone ?? null,
+            "first_name" => $first_name ?? null,
+            "middle_name" => $middle_name ?? null,
+            "last_name" => $last_name ?? null,
+            "gender" => $gender ?? null,
+            "address" => $address ?? null,
+            "province_id" => $province_id ?? null,
+            "regency_id" => $regency_id ?? null,
+            "district_id" => $district_id ?? null,
+            "village_id" => $village_id ?? null,
         ]);
         $this->endpoint = "/api/v1/startup/public/auth/registration";
         $this->setClient();
