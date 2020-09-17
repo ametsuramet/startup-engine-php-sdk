@@ -76,6 +76,36 @@ class CoreModule {
         return $this->send();
     }
 
+    public function update($feature, $id, $payload) 
+    {
+        extract($payload);
+        $this->setClient();
+        $this->httpMethod = "PUT";
+        $this->query = [
+            "type" => $feature ?? "",
+        ];
+        $this->body = json_encode($payload);
+        
+        $this->endpoint = "/api/v1/startup/public/feature/" . $id;
+
+        return $this->send();
+    }
+
+
+    public function delete($feature, $id) 
+    {
+        extract($payload);
+        $this->setClient();
+        $this->httpMethod = "DELETE";
+        $this->query = [
+            "type" => $feature ?? "",
+        ];
+        
+        $this->endpoint = "/api/v1/startup/public/feature/" . $id;
+
+        return $this->send();
+    }
+
     private function send() 
     {
         
