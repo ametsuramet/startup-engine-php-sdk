@@ -13,6 +13,7 @@ class CoreModule {
     private $query;
     private $endpoint;
     private $token;
+    private String $body;
 
     function __construct($appKey, $appSecret = "")
     {
@@ -59,12 +60,30 @@ class CoreModule {
 
         return $this->send();
     }
+    public function create($feature, $payload) 
+    {
+        extract($payload);
+        $this->setClient();
+        $this->httpMethod = "GET";
+        $this->query = [
+            "type" => $feature ?? "",
+        ];
+        $this->body = json_encode($payload);
+        
+        $this->endpoint = "/api/v1/startup/public/feature";
+
+        return $this->send();
+    }
 
     private function send() 
     {
-        $res = $this->client->request($this->httpMethod, $this->endpoint, [
+        $data = [
             'query' => $this->query,
-        ]);
+        ];
+        if ($this->body) {
+            $data["body"] = $this->body;
+        }
+        $res = $this->client->request($this->httpMethod, $this->endpoint, $data);
         if  ($res->getStatusCode() != 200) {
             throw new \Exception("Error Request => " . $res->getStatusCode());
         }
