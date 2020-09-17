@@ -42,7 +42,7 @@ class CoreModule {
 
  
 
-    public function getList($payload) 
+    public function getList($feature, $payload) 
     {
         extract($payload);
         $this->setClient();
