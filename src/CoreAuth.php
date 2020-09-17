@@ -74,7 +74,7 @@ class CoreAuth
         $this->body = json_encode([
             "email" => $email,
             "phone" => $phone,
-            "otp_number" => $first_name,
+            "otp_number" => $otp_number,
            
         ]);
         $this->endpoint = "/api/v1/startup/public/auth/validation";
