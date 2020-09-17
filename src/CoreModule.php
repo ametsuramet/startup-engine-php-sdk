@@ -35,6 +35,7 @@ class CoreModule {
             'base_uri' => $this->baseUrl,
             'headers' => [
                 "APP-ID" => $this->appKey,
+                'content-type' => 'application/json',
                 "Authorization" => "Bearer ". $this->token,
             ]
         ]);
@@ -77,13 +78,11 @@ class CoreModule {
 
     private function send() 
     {
-        $data = [
+        
+        $res = $this->client->request($this->httpMethod, $this->endpoint, [
             'query' => $this->query,
-        ];
-        if ($this->body) {
-            $data["body"] = $this->body;
-        }
-        $res = $this->client->request($this->httpMethod, $this->endpoint, $data);
+            'body' => $this->body,
+        ]);
         if  ($res->getStatusCode() != 200) {
             throw new \Exception("Error Request => " . $res->getStatusCode());
         }
