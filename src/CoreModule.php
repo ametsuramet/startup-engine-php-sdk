@@ -41,15 +41,16 @@ class CoreModule {
 
  
 
-    public function getList($feature,  $search = "", $page = 1, $limit = 20) 
+    public function getList($payload) 
     {
+        extract($payload);
         $this->setClient();
         $this->httpMethod = "GET";
         $this->query = [
-            "type" => $feature,
-            "search" => $search,
-            "page" => $page,
-            "limit" => $limit,
+            "type" => $feature ?? "",
+            "search" => $search ?? "",
+            "page" => $page ?? 1,
+            "limit" => $limit ?? 20,
         ];
         
         $this->endpoint = "/api/v1/startup/public/feature";
