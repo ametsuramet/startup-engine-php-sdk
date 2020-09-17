@@ -67,6 +67,21 @@ class CoreAuth
         return $this->send();
     }
 
+    public function validation($payload)
+    {
+        extract($payload);
+ 
+        $this->body = json_encode([
+            "email" => $email,
+            "phone" => $phone,
+            "otp_number" => $first_name,
+           
+        ]);
+        $this->endpoint = "/api/v1/startup/public/auth/validation";
+        $this->setClient();
+        return $this->send();
+    }
+
     public function setBaseUrl($baseUrl)
     {
         $this->baseUrl = $baseUrl;
