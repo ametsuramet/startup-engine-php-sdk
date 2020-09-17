@@ -64,7 +64,7 @@ class CoreModule {
     {
         extract($payload);
         $this->setClient();
-        $this->httpMethod = "GET";
+        $this->httpMethod = "POST";
         $this->query = [
             "type" => $feature ?? "",
         ];
