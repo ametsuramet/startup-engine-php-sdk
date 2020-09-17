@@ -76,6 +76,18 @@ class CoreModule {
         return $this->send();
     }
 
+    public function show($feature, $id) 
+    {
+        $this->setClient();
+        $this->httpMethod = "GET";
+        $this->query = [
+            "type" => $feature ?? "",
+        ];
+        
+        $this->endpoint = "/api/v1/startup/public/feature/" . $id;
+
+        return $this->send();
+    }
     public function update($feature, $id, $payload) 
     {
         extract($payload);
@@ -94,7 +106,6 @@ class CoreModule {
 
     public function delete($feature, $id) 
     {
-        extract($payload);
         $this->setClient();
         $this->httpMethod = "DELETE";
         $this->query = [
