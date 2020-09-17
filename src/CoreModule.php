@@ -13,7 +13,7 @@ class CoreModule {
     private $query;
     private $endpoint;
     private $token;
-    private String $body;
+    private String $body = "";
 
     function __construct($appKey, $appSecret = "")
     {
