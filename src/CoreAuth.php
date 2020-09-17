@@ -27,12 +27,12 @@ class CoreAuth
 
     }
 
-    public function login($username, $password, $device, $fcm_token)
+    public function login($username, $password = null, $device = null, $fcm_token = null)
     {
-        $this->username = $username;
-        $this->password = $password;
-        $this->device = $device;
-        $this->fcm_token = $fcm_token;
+        if (is_array($username)) {
+            extract($username);
+        }
+        
         $this->body = json_encode([
             "username" => $username,
             "password" => $password,
@@ -40,6 +40,29 @@ class CoreAuth
             "fcm_token" => $fcm_token,
         ]);
         $this->endpoint = "/api/v1/startup/public/auth/login";
+        $this->setClient();
+        return $this->send();
+    }
+
+    public function registration($payload)
+    {
+        extract($payload);
+ 
+        $this->body = json_encode([
+            "email" => $email,
+            "password" => $password,
+            "username" => $username,
+            "phone" => $phone,
+            "first_name" => $first_name,
+            "last_name" => $last_name,
+            "gender" => $gender,
+            "address" => $address,
+            "province_id" => $province_id,
+            "regency_id" => $regency_id,
+            "district_id" => $district_id,
+            "village_id" => $village_id,
+        ]);
+        $this->endpoint = "/api/v1/startup/public/auth/registration";
         $this->setClient();
         return $this->send();
     }
