@@ -1,9 +1,12 @@
 <?php
+
 namespace Ametsuramet\StartupEngine;
+
 use GuzzleHttp;
 
 
-class CoreModule {
+class CoreModule
+{
     private String $baseUrl = "http://localhost:9000";
     private String $appKey;
     private String $appSecret;
@@ -19,31 +22,32 @@ class CoreModule {
     {
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
-      
-
     }
 
-    public function setBaseUrl($baseUrl) {
+    public function setBaseUrl($baseUrl)
+    {
         $this->baseUrl = $baseUrl;
     }
-    public function setToken($token) {
+    public function setToken($token)
+    {
         $this->token = $token;
     }
 
-    private function setClient() {
+    private function setClient()
+    {
         $this->client =  new GuzzleHttp\Client([
             'base_uri' => $this->baseUrl,
             'headers' => [
                 "APP-ID" => $this->appKey,
                 'content-type' => 'application/json',
-                "Authorization" => "Bearer ". $this->token,
+                "Authorization" => "Bearer " . $this->token,
             ]
         ]);
     }
 
- 
 
-    public function getList($feature, $payload) 
+
+    public function getList($feature, $payload, $filter = [])
     {
         extract($payload);
         $this->setClient();
@@ -56,12 +60,15 @@ class CoreModule {
             "orderBy" => $orderBy ?? "",
             "order" => $order ?? "asc",
         ];
-        
+
+        if ($filter)
+            $this->query['filter'] = json_encode($filter);
+
         $this->endpoint = "/api/v1/startup/public/feature";
 
         return $this->send();
     }
-    public function create($feature, $payload) 
+    public function create($feature, $payload)
     {
         extract($payload);
         $this->setClient();
@@ -70,25 +77,25 @@ class CoreModule {
             "type" => $feature ?? "",
         ];
         $this->body = json_encode($payload);
-        
+
         $this->endpoint = "/api/v1/startup/public/feature";
 
         return $this->send();
     }
 
-    public function show($feature, $id) 
+    public function show($feature, $id)
     {
         $this->setClient();
         $this->httpMethod = "GET";
         $this->query = [
             "type" => $feature ?? "",
         ];
-        
+
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
 
         return $this->send();
     }
-    public function update($feature, $id, $payload) 
+    public function update($feature, $id, $payload)
     {
         extract($payload);
         $this->setClient();
@@ -97,36 +104,36 @@ class CoreModule {
             "type" => $feature ?? "",
         ];
         $this->body = json_encode($payload);
-        
+
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
 
         return $this->send();
     }
 
 
-    public function delete($feature, $id) 
+    public function delete($feature, $id)
     {
         $this->setClient();
         $this->httpMethod = "DELETE";
         $this->query = [
             "type" => $feature ?? "",
         ];
-        
+
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
 
         return $this->send();
     }
 
-    private function send() 
+    private function send()
     {
-        
+
         $res = $this->client->request($this->httpMethod, $this->endpoint, [
             'query' => $this->query,
             'body' => $this->body,
         ]);
-        if  ($res->getStatusCode() != 200) {
+        if ($res->getStatusCode() != 200) {
             throw new \Exception("Error Request => " . $res->getStatusCode());
         }
-        return json_decode($res->getBody()->getContents()) ;
+        return json_decode($res->getBody()->getContents());
     }
 }
