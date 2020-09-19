@@ -3,7 +3,6 @@
 namespace Ametsuramet\StartupEngine;
 
 use GuzzleHttp;
-use Core;
 
 class CoreAuth extends Core
 {

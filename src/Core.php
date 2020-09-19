@@ -1,5 +1,5 @@
 <?php
-
+namespace Ametsuramet\StartupEngine;
 class Core {
     private String $baseUrl = "http://localhost:9000";
     private String $appKey;

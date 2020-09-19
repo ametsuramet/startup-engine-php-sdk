@@ -2,9 +2,7 @@
 
 namespace Ametsuramet\StartupEngine;
 
-use Core;
 use GuzzleHttp;
-use JsonMapper;
 
 class CoreModule extends Core
 {
