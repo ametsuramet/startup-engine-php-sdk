@@ -14,6 +14,7 @@ class CoreAuth extends Core
 
     public function login($username, $password = null, $device = null, $fcm_token = null)
     {
+        $this->httpMethod = "POST";
         if (is_array($username)) {
             extract($username);
         }
@@ -31,6 +32,7 @@ class CoreAuth extends Core
 
     public function registration($payload)
     {
+        $this->httpMethod = "POST";
         extract($payload);
  
         $this->body = json_encode([
@@ -55,6 +57,7 @@ class CoreAuth extends Core
 
     public function validation($payload)
     {
+        $this->httpMethod = "POST";
         extract($payload);
  
         $this->body = json_encode([
