@@ -71,8 +71,40 @@ class CoreAuth extends Core
         return $this->send();
     }
 
-   
 
+    public function profile()
+    {
+        $this->httpMethod = "GET";
+ 
+    
+        $this->endpoint = "/api/v1/startup/public/profile";
+        $this->setClient();
+        return $this->send();
+    }
 
-   
+    public function UpdateProfile($payload)
+    {
+        $this->httpMethod = "PUT";
+        extract($payload);
+ 
+        $this->body = json_encode([
+            "phone" => $phone ?? null,
+            "first_name" => $first_name ?? null,
+            "middle_name" => $middle_name ?? null,
+            "last_name" => $last_name ?? null,
+            "gender" => $gender ?? null,
+            "address" => $address ?? null,
+            "province_id" => $province_id ?? null,
+            "regency_id" => $regency_id ?? null,
+            "district_id" => $district_id ?? null,
+            "village_id" => $village_id ?? null,
+            "path" => $path ?? null,
+            "mime_type" => $mime_type ?? null,
+        ]);
+ 
+    
+        $this->endpoint = "/api/v1/startup/public/profile";
+        $this->setClient();
+        return $this->send();
+    }
 }
