@@ -1,18 +1,19 @@
 <?php
 namespace Ametsuramet\StartupEngine;
+use JsonMapper;
 class Core {
-    private String $baseUrl = "http://localhost:9000";
-    private String $appKey;
-    private String $appSecret;
-    private String $feature;
-    private $client;
-    private $httpMethod = "GET";
-    private $query;
-    private $endpoint;
-    private $token;
-    private String $body = "";
-    private array $collection;
-    private $data;
+    protected String $baseUrl = "http://localhost:9000";
+    protected String $appKey;
+    protected String $appSecret;
+    protected String $feature;
+    protected $client;
+    protected $httpMethod = "GET";
+    protected $query;
+    protected $endpoint;
+    protected $token;
+    protected String $body = "";
+    protected array $collection;
+    protected $data;
 
     public function toCollection($class)
     {
