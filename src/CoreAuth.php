@@ -71,33 +71,8 @@ class CoreAuth extends Core
         return $this->send();
     }
 
-    public function setBaseUrl($baseUrl)
-    {
-        $this->baseUrl = $baseUrl;
-    }
-
-    private function setClient()
-    {
-        $this->client =  new GuzzleHttp\Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
-                'content-type' => 'application/json',
-                "APP-ID" => $this->appKey,
-            ]
-        ]);
-    }
+   
 
 
-    private function send()
-    {
-        // dd($this->body);
-        $res = $this->client->request($this->httpMethod, $this->endpoint, [
-            'query' => $this->query,
-            'body' => $this->body,
-        ]);
-        if ($res->getStatusCode() != 200) {
-            throw new \Exception("Error Request => " . $res->getStatusCode());
-        }
-        return json_decode($res->getBody()->getContents());
-    }
+   
 }

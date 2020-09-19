@@ -1,6 +1,8 @@
 <?php
 namespace Ametsuramet\StartupEngine;
 use JsonMapper;
+use GuzzleHttp;
+
 class Core {
     protected String $baseUrl = "http://localhost:9000";
     protected String $appKey;
@@ -35,5 +37,39 @@ class Core {
     protected function toJson()
     {
         return json_encode($this->data);
+    }
+
+    public function setBaseUrl($baseUrl)
+    {
+        $this->baseUrl = $baseUrl;
+    }
+    public function setToken($token)
+    {
+        $this->token = $token;
+    }
+
+    protected function setClient()
+    {
+        $this->client =  new GuzzleHttp\Client([
+            'base_uri' => $this->baseUrl,
+            'headers' => [
+                "APP-ID" => $this->appKey,
+                'content-type' => 'application/json',
+                "Authorization" => "Bearer " . $this->token,
+            ]
+        ]);
+    }
+
+    protected function send()
+    {
+
+        $res = $this->client->request($this->httpMethod, $this->endpoint, [
+            'query' => $this->query,
+            'body' => $this->body,
+        ]);
+        if ($res->getStatusCode() != 200) {
+            throw new \Exception("Error Request => " . $res->getStatusCode());
+        }
+        return json_decode($res->getBody()->getContents());
     }
 }

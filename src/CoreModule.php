@@ -6,38 +6,11 @@ use GuzzleHttp;
 
 class CoreModule extends Core
 {
-
-    
-
     function __construct($appKey, $appSecret = "")
     {
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
     }
-
-    public function setBaseUrl($baseUrl)
-    {
-        $this->baseUrl = $baseUrl;
-    }
-    public function setToken($token)
-    {
-        $this->token = $token;
-    }
-
-    private function setClient()
-    {
-        $this->client =  new GuzzleHttp\Client([
-            'base_uri' => $this->baseUrl,
-            'headers' => [
-                "APP-ID" => $this->appKey,
-                'content-type' => 'application/json',
-                "Authorization" => "Bearer " . $this->token,
-            ]
-        ]);
-    }
-
-
-    
 
     public function getList($feature, $payload, $filter = [])
     {
@@ -120,19 +93,6 @@ class CoreModule extends Core
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
 
         return $this->send();
-    }
-
-    private function send()
-    {
-
-        $res = $this->client->request($this->httpMethod, $this->endpoint, [
-            'query' => $this->query,
-            'body' => $this->body,
-        ]);
-        if ($res->getStatusCode() != 200) {
-            throw new \Exception("Error Request => " . $res->getStatusCode());
-        }
-        return json_decode($res->getBody()->getContents());
     }
 
 }
