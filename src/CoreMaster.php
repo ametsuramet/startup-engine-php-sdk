@@ -15,16 +15,23 @@ class CoreMaster extends Core
     public function getProvince()
     {
         $this->setClient();
+        $this->query = [
+            "limit" => $limit ?? 1000,
+        ];
+
         $this->endpoint = "/api/v1/startup/public/master/province";
         $response = $this->send();
 
         $this->collection = $response->data;
         return $response;
     }
-    
+
     public function getRegency($filter = [])
     {
         $this->setClient();
+        $this->query = [
+            "limit" => $limit ?? 1000,
+        ];
         if ($filter)
             $this->query['filter'] = json_encode($filter);
         $this->endpoint = "/api/v1/startup/public/master/regency";
@@ -37,6 +44,9 @@ class CoreMaster extends Core
     public function getDistrict($filter = [])
     {
         $this->setClient();
+        $this->query = [
+            "limit" => $limit ?? 1000,
+        ];
         if ($filter)
             $this->query['filter'] = json_encode($filter);
         $this->endpoint = "/api/v1/startup/public/master/district";
@@ -49,6 +59,9 @@ class CoreMaster extends Core
     public function getVillage($filter = [])
     {
         $this->setClient();
+        $this->query = [
+            "limit" => $limit ?? 1000,
+        ];
         if ($filter)
             $this->query['filter'] = json_encode($filter);
         $this->endpoint = "/api/v1/startup/public/master/village";
