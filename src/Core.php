@@ -15,7 +15,7 @@ class Core {
     protected $token;
     protected String $body = "";
     protected array $collection;
-    protected array $multipart;
+    protected array $multipart = [];
     protected $data;
 
     public function toCollection($class)
@@ -66,11 +66,11 @@ class Core {
         $payload = [
             'query' => $this->query,
         ];
-        if ($this->body) {
-            $payload["body"] = $this->body;
-        }
-        if ($this->multipart) {
+       
+        if (count($this->multipart)) {
             $payload["multipart"] = $this->multipart;
+        } else {
+            $payload["body"] = $this->body;
         }
 
         $res = $this->client->request($this->httpMethod, $this->endpoint, $payload);
