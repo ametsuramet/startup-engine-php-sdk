@@ -15,6 +15,7 @@ class Core {
     protected $token;
     protected String $body = "";
     protected array $collection;
+    protected array $multipart;
     protected $data;
 
     public function toCollection($class)
@@ -62,11 +63,17 @@ class Core {
 
     protected function send()
     {
-
-        $res = $this->client->request($this->httpMethod, $this->endpoint, [
+        $payload = [
             'query' => $this->query,
-            'body' => $this->body,
-        ]);
+        ];
+        if ($this->body) {
+            $payload["body"] = $this->body;
+        }
+        if ($this->multipart) {
+            $payload["multipart"] = $this->multipart;
+        }
+
+        $res = $this->client->request($this->httpMethod, $this->endpoint, $payload);
         if ($res->getStatusCode() != 200) {
             throw new \Exception("Error Request => " . $res->getStatusCode());
         }
