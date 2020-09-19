@@ -16,6 +16,10 @@ class CoreMaster extends Core
     {
         
         $this->endpoint = "/api/v1/startup/public/master/province";
+        $response = $this->send();
+
+        $this->collection = $response->data;
+        return $response;
     }
     public function getRegency($filter = [])
     {
