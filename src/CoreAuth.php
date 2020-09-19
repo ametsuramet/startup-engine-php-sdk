@@ -6,24 +6,10 @@ use GuzzleHttp;
 
 class CoreAuth extends Core
 {
-    private String $baseUrl = "http://localhost:9000";
-    private String $username;
-    private String $password;
-    private String $device;
-    private String $fcm_token;
-    private String $httpMethod = "POST";
-    private String $body;
-    private Array $query = [];
-    private String $appKey;
-    private String $appSecret;
-    private String $endpoint;
-
     function __construct($appKey, $appSecret = "")
     {
         $this->appKey = $appKey;
         $this->appSecret = $appSecret;
-      
-
     }
 
     public function login($username, $password = null, $device = null, $fcm_token = null)
