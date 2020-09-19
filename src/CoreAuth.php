@@ -3,9 +3,9 @@
 namespace Ametsuramet\StartupEngine;
 
 use GuzzleHttp;
+use Core;
 
-
-class CoreAuth
+class CoreAuth extends Core
 {
     private String $baseUrl = "http://localhost:9000";
     private String $username;

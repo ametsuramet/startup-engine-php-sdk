@@ -2,21 +2,14 @@
 
 namespace Ametsuramet\StartupEngine;
 
+use Core;
 use GuzzleHttp;
+use JsonMapper;
 
-
-class CoreModule
+class CoreModule extends Core
 {
-    private String $baseUrl = "http://localhost:9000";
-    private String $appKey;
-    private String $appSecret;
-    private String $feature;
-    private $client;
-    private $httpMethod = "GET";
-    private $query;
-    private $endpoint;
-    private $token;
-    private String $body = "";
+
+    
 
     function __construct($appKey, $appSecret = "")
     {
@@ -46,6 +39,7 @@ class CoreModule
     }
 
 
+    
 
     public function getList($feature, $payload, $filter = [])
     {
@@ -65,8 +59,10 @@ class CoreModule
             $this->query['filter'] = json_encode($filter);
 
         $this->endpoint = "/api/v1/startup/public/feature";
+        $response = $this->send();
 
-        return $this->send();
+        $this->collection = $response->data;
+        return $response;
     }
     public function create($feature, $payload)
     {
@@ -80,7 +76,9 @@ class CoreModule
 
         $this->endpoint = "/api/v1/startup/public/feature";
 
-        return $this->send();
+        $response = $this->send();
+        $this->data = $response->data;
+        return $response;
     }
 
     public function show($feature, $id)
@@ -92,8 +90,9 @@ class CoreModule
         ];
 
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
-
-        return $this->send();
+        $response = $this->send();
+        $this->data = $response->data;
+        return $response;
     }
     public function update($feature, $id, $payload)
     {
@@ -106,8 +105,9 @@ class CoreModule
         $this->body = json_encode($payload);
 
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
-
-        return $this->send();
+        $response = $this->send();
+        $this->data = $response->data;
+        return $response;
     }
 
 
@@ -136,4 +136,5 @@ class CoreModule
         }
         return json_decode($res->getBody()->getContents());
     }
+
 }

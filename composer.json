@@ -3,7 +3,8 @@
     "description": "PHP SDK for Codelite Startup ENGINE",
     "type": "library",
     "require": {
-        "guzzlehttp/guzzle": "^7.0.1"
+        "guzzlehttp/guzzle": "^7.0.1",
+        "netresearch/jsonmapper": "dev-master"
     },
     "license": "MIT",
     "autoload": {
