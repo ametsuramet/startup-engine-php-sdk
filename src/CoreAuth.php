@@ -18,7 +18,7 @@ class CoreAuth extends Core
         if (is_array($username)) {
             extract($username);
         }
-        
+
         $this->body = json_encode([
             "username" => $username,
             "password" => $password,
@@ -34,7 +34,7 @@ class CoreAuth extends Core
     {
         $this->httpMethod = "POST";
         extract($payload);
- 
+
         $this->body = json_encode([
             "email" => $email ?? null,
             "password" => $password ?? null,
@@ -59,12 +59,12 @@ class CoreAuth extends Core
     {
         $this->httpMethod = "POST";
         extract($payload);
- 
+
         $this->body = json_encode([
             "email" => $email,
             "phone" => $phone,
             "otp_number" => $otp_number,
-           
+
         ]);
         $this->endpoint = "/api/v1/startup/public/auth/validation";
         $this->setClient();
@@ -75,18 +75,33 @@ class CoreAuth extends Core
     public function profile()
     {
         $this->httpMethod = "GET";
- 
-    
+
+
         $this->endpoint = "/api/v1/startup/public/profile";
         $this->setClient();
         return $this->send();
     }
 
-    public function UpdateProfile($payload)
+    public function upload($multipart)
+    {
+        $this->httpMethod = "POST";
+        $this->client =  new GuzzleHttp\Client([
+            'base_uri' => $this->baseUrl,
+            'headers' => [
+                "APP-ID" => $this->appKey,
+                "Authorization" => "Bearer " . $this->token,
+            ]
+        ]);
+        $this->multipart = $multipart;
+        $this->endpoint = "/api/v1/startup/public/upload";
+        return $this->send();
+    }
+
+    public function updateProfile($payload)
     {
         $this->httpMethod = "PUT";
         extract($payload);
- 
+
         $this->body = json_encode([
             "phone" => $phone ?? null,
             "first_name" => $first_name ?? null,
@@ -101,8 +116,8 @@ class CoreAuth extends Core
             "path" => $path ?? null,
             "mime_type" => $mime_type ?? null,
         ]);
- 
-    
+
+
         $this->endpoint = "/api/v1/startup/public/profile";
         $this->setClient();
         return $this->send();
