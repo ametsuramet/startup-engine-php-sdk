@@ -55,6 +55,7 @@ class Core {
             'base_uri' => $this->baseUrl,
             'headers' => [
                 "APP-ID" => $this->appKey,
+                "APP-SECRET" => $this->appSecret,
                 'content-type' => 'application/json',
                 "Authorization" => "Bearer " . $this->token,
             ]

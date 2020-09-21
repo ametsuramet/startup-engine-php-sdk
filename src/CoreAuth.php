@@ -12,6 +12,24 @@ class CoreAuth extends Core
         $this->appSecret = $appSecret;
     }
 
+    public function loginAdmin($username, $password = null, $device = null, $fcm_token = null)
+    {
+        $this->httpMethod = "POST";
+        if (is_array($username)) {
+            extract($username);
+        }
+
+        $this->body = json_encode([
+            "username" => $username,
+            "password" => $password,
+            "device" => $device,
+            "fcm_token" => $fcm_token,
+        ]);
+        $this->endpoint = "/api/v1/startup/user-admin/login";
+        $this->setClient();
+        return $this->send();
+    }
+
     public function login($username, $password = null, $device = null, $fcm_token = null)
     {
         $this->httpMethod = "POST";
@@ -89,6 +107,7 @@ class CoreAuth extends Core
             'base_uri' => $this->baseUrl,
             'headers' => [
                 "APP-ID" => $this->appKey,
+                "APP-SECRET" => $this->appSecret,
                 "Authorization" => "Bearer " . $this->token,
             ]
         ]);
