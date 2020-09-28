@@ -45,6 +45,7 @@ class CoreModule extends Core
         ];
         $this->body = json_encode($payload);
 
+        if (!$this->endpoint)
         $this->endpoint = "/api/v1/startup/public/feature";
 
         $response = $this->send();
@@ -59,7 +60,7 @@ class CoreModule extends Core
         $this->query = [
             "type" => $feature ?? "",
         ];
-
+        if (!$this->endpoint)
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
         $response = $this->send();
         $this->data = $response->data;
@@ -75,6 +76,7 @@ class CoreModule extends Core
         ];
         $this->body = json_encode($payload);
 
+        if (!$this->endpoint)
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
         $response = $this->send();
         $this->data = $response->data;
@@ -90,6 +92,7 @@ class CoreModule extends Core
             "type" => $feature ?? "",
         ];
 
+        if (!$this->endpoint)
         $this->endpoint = "/api/v1/startup/public/feature/" . $id;
 
         return $this->send();

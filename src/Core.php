@@ -44,6 +44,10 @@ class Core {
     {
         $this->baseUrl = $baseUrl;
     }
+    public function setEndpoint($endpoint)
+    {
+        $this->endpoint = $endpoint;
+    }
     public function setToken($token)
     {
         $this->token = $token;
@@ -73,7 +77,6 @@ class Core {
         } else {
             $payload["body"] = $this->body;
         }
-
         $res = $this->client->request($this->httpMethod, $this->endpoint, $payload);
         if ($res->getStatusCode() != 200) {
             throw new \Exception("Error Request => " . $res->getStatusCode());
