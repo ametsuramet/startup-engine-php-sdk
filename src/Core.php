@@ -6,7 +6,7 @@ use GuzzleHttp;
 class Core {
     protected String $baseUrl = "http://localhost:9000";
     protected String $appKey;
-    protected String $appSecret;
+    protected  $appSecret;
     protected String $feature;
     protected $client;
     protected $httpMethod = "GET";
