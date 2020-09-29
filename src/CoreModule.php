@@ -23,6 +23,7 @@ class CoreModule extends Core
             "page" => $page ?? 1,
             "limit" => $limit ?? 20,
             "orderBy" => $orderBy ?? "",
+            "select_colum" => $selectColumn ?? "",
             "order" => $order ?? "asc",
         ];
 
