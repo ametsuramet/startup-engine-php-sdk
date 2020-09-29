@@ -55,14 +55,18 @@ class Core {
 
     protected function setClient()
     {
+        $headers = [
+            "APP-ID" => $this->appKey,
+            "APP-SECRET" => $this->appSecret,
+            'content-type' => 'application/json',
+            "Authorization" => "Bearer " . $this->token,
+        ];
+        if ($this->appSecret) {
+            $headers["APP-SECRET"] = $this->appSecret;
+        }
         $this->client =  new GuzzleHttp\Client([
             'base_uri' => $this->baseUrl,
-            'headers' => [
-                "APP-ID" => $this->appKey,
-                "APP-SECRET" => $this->appSecret,
-                'content-type' => 'application/json',
-                "Authorization" => "Bearer " . $this->token,
-            ]
+            'headers' => $headers,
         ]);
     }
 
