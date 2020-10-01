@@ -29,7 +29,8 @@ class CoreModule extends Core
 
         if ($filter)
             $this->query['filter'] = json_encode($filter);
-
+            
+        if(!$this->endpoint)
         $this->endpoint = "/api/v1/startup/public/feature";
         $response = $this->send();
 

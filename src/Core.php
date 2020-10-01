@@ -14,7 +14,7 @@ class Core {
     protected $endpoint;
     protected $token;
     protected String $body = "";
-    protected array $collection;
+    protected $collection;
     protected array $multipart = [];
     protected $data;
 
