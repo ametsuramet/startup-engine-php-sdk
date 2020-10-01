@@ -29,9 +29,9 @@ class CoreModule extends Core
 
         if ($filter)
             $this->query['filter'] = json_encode($filter);
-            
-        if(!$this->endpoint)
-        $this->endpoint = "/api/v1/startup/public/feature";
+
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/feature";
         $response = $this->send();
 
         $this->collection = $response->data;
@@ -48,7 +48,7 @@ class CoreModule extends Core
         $this->body = json_encode($payload);
 
         if (!$this->endpoint)
-        $this->endpoint = "/api/v1/startup/public/feature";
+            $this->endpoint = "/api/v1/startup/public/feature";
 
         $response = $this->send();
         $this->data = $response->data;
@@ -63,7 +63,7 @@ class CoreModule extends Core
             "type" => $feature ?? "",
         ];
         if (!$this->endpoint)
-        $this->endpoint = "/api/v1/startup/public/feature/" . $id;
+            $this->endpoint = "/api/v1/startup/public/feature/" . $id;
         $response = $this->send();
         $this->data = $response->data;
         return $response;
@@ -79,7 +79,7 @@ class CoreModule extends Core
         $this->body = json_encode($payload);
 
         if (!$this->endpoint)
-        $this->endpoint = "/api/v1/startup/public/feature/" . $id;
+            $this->endpoint = "/api/v1/startup/public/feature/" . $id;
         $response = $this->send();
         $this->data = $response->data;
         return $response;
@@ -95,9 +95,8 @@ class CoreModule extends Core
         ];
 
         if (!$this->endpoint)
-        $this->endpoint = "/api/v1/startup/public/feature/" . $id;
+            $this->endpoint = "/api/v1/startup/public/feature/" . $id;
 
         return $this->send();
     }
-
 }

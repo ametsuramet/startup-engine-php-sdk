@@ -18,8 +18,8 @@ class CoreMaster extends Core
         $this->query = [
             "limit" => $limit ?? 1000,
         ];
-
-        $this->endpoint = "/api/v1/startup/public/master/province";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/master/province";
         $response = $this->send();
 
         $this->collection = $response->data;
@@ -34,7 +34,8 @@ class CoreMaster extends Core
         ];
         if ($filter)
             $this->query['filter'] = json_encode($filter);
-        $this->endpoint = "/api/v1/startup/public/master/regency";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/master/regency";
         $response = $this->send();
 
         $this->collection = $response->data;
@@ -49,7 +50,8 @@ class CoreMaster extends Core
         ];
         if ($filter)
             $this->query['filter'] = json_encode($filter);
-        $this->endpoint = "/api/v1/startup/public/master/district";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/master/district";
         $response = $this->send();
 
         $this->collection = $response->data;
@@ -64,7 +66,8 @@ class CoreMaster extends Core
         ];
         if ($filter)
             $this->query['filter'] = json_encode($filter);
-        $this->endpoint = "/api/v1/startup/public/master/village";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/master/village";
         $response = $this->send();
 
         $this->collection = $response->data;

@@ -25,7 +25,8 @@ class CoreAuth extends Core
             "device" => $device,
             "fcm_token" => $fcm_token,
         ]);
-        $this->endpoint = "/api/v1/startup/user-admin/login";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/user-admin/login";
         $this->setClient();
         return $this->send();
     }
@@ -43,7 +44,8 @@ class CoreAuth extends Core
             "device" => $device,
             "fcm_token" => $fcm_token,
         ]);
-        $this->endpoint = "/api/v1/startup/public/auth/login";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/auth/login";
         $this->setClient();
         return $this->send();
     }
@@ -68,7 +70,8 @@ class CoreAuth extends Core
             "district_id" => $district_id ?? null,
             "village_id" => $village_id ?? null,
         ]);
-        $this->endpoint = "/api/v1/startup/public/auth/registration";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/auth/registration";
         $this->setClient();
         return $this->send();
     }
@@ -84,7 +87,8 @@ class CoreAuth extends Core
             "otp_number" => $otp_number,
 
         ]);
-        $this->endpoint = "/api/v1/startup/public/auth/validation";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/auth/validation";
         $this->setClient();
         return $this->send();
     }
@@ -94,8 +98,8 @@ class CoreAuth extends Core
     {
         $this->httpMethod = "GET";
 
-
-        $this->endpoint = "/api/v1/startup/public/profile";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/profile";
         $this->setClient();
         return $this->send();
     }
@@ -112,7 +116,8 @@ class CoreAuth extends Core
             ]
         ]);
         $this->multipart = $multipart;
-        $this->endpoint = "/api/v1/startup/public/upload";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/upload";
         return $this->send();
     }
 
@@ -136,8 +141,8 @@ class CoreAuth extends Core
             "mime_type" => $mime_type ?? null,
         ]);
 
-
-        $this->endpoint = "/api/v1/startup/public/profile";
+        if (!$this->endpoint)
+            $this->endpoint = "/api/v1/startup/public/profile";
         $this->setClient();
         return $this->send();
     }
