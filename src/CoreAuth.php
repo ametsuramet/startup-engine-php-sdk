@@ -69,6 +69,7 @@ class CoreAuth extends Core
             "regency_id" => $regency_id ?? null,
             "district_id" => $district_id ?? null,
             "village_id" => $village_id ?? null,
+            "company_id" => $company_id ?? null,
         ]);
         if (!$this->endpoint)
             $this->endpoint = "/api/v1/startup/public/auth/registration";
