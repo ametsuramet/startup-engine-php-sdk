@@ -24,6 +24,7 @@ class CoreModule extends Core
             "limit" => $limit ?? 20,
             "orderBy" => $orderBy ?? "",
             "select_column" => $selectColumn ?? "",
+            "skip_select_column" => $skip_select_column ?? "",
             "order" => $order ?? "asc",
         ];
 
