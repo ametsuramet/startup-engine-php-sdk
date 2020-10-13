@@ -12,12 +12,12 @@ class CoreModule extends Core
         $this->appSecret = $appSecret;
     }
 
-    public function getList($feature, $payload, $filter = [])
+    public function getList($feature, $payload, $filter = [], $custom_query = [])
     {
         extract($payload);
         $this->setClient();
         $this->httpMethod = "GET";
-        $this->query = [
+        $query = [
             "type" => $feature ?? "",
             "search" => $search ?? "",
             "page" => $page ?? 1,
@@ -28,6 +28,8 @@ class CoreModule extends Core
             "use_searchable_joins" => $use_searchable_joins ?? "",
             "order" => $order ?? "asc",
         ];
+        
+        $this->query = array_merge($query, $custom_query);
 
         if ($filter)
             $this->query['filter'] = json_encode($filter);
