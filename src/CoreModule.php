@@ -25,6 +25,7 @@ class CoreModule extends Core
             "orderBy" => $orderBy ?? "",
             "select_column" => $selectColumn ?? "",
             "skip_select_column" => $skip_select_column ?? "",
+            "use_searchable_joins" => $use_searchable_joins ?? "",
             "order" => $order ?? "asc",
         ];
 
