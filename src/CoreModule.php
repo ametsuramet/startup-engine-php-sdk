@@ -59,13 +59,30 @@ class CoreModule extends Core
         return $response;
     }
 
-    public function show($feature, $id)
+    public function show($feature, $id, $payload = null, $filter = [], $custom_query = [])
     {
         $this->setClient();
         $this->httpMethod = "GET";
-        $this->query = [
+        $query = [
             "type" => $feature ?? "",
         ];
+        if ($payload) {
+            extract($payload);
+            $query["search"] =  $search ?? "";
+            $query["page"] =  $page ?? 1;
+            $query["limit"] =  $limit ?? 20;
+            $query["orderBy"] =  $orderBy ?? "";
+            $query["select_column"] =  $selectColumn ?? "";
+            $query["skip_select_column"] =  $skip_select_column ?? "";
+            $query["use_searchable_joins"] =  $use_searchable_joins ?? "";
+            $query["order"] =  $order ?? "asc";
+        }
+
+        $this->query = array_merge($query, $custom_query);
+
+        if ($filter)
+            $this->query['filter'] = json_encode($filter);
+            
         if (!$this->endpoint)
             $this->endpoint = "/api/v1/startup/public/feature/" . $id;
         $response = $this->send();
